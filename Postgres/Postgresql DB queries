@@ -1,0 +1,5 @@
+https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e
+
+CREATE DATABASE dataweave;
+CREATE USER data WITH ENCRYPTED PASSWORD 'root';
+GRANT ALL PRIVILEGES ON DATABASE dataweave TO data;
