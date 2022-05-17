@@ -1,5 +1,36 @@
 https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e
 
+kubectl exec -it <pod> /bin/sh
+psql -U postgres
+\l
+
 CREATE DATABASE dataweave;
 CREATE USER data WITH ENCRYPTED PASSWORD 'root';
 GRANT ALL PRIVILEGES ON DATABASE dataweave TO data;
+
+if you deploy postgres svc as loadbalancer you can access it using in pgadmin
+
+name: testing
+ip: ******
+db: dataweave
+pwd: root
+user: data
+
+and save
+
+---------------- How to take postgresql backup ----------------------
+
+https://www.tecmint.com/backup-and-restore-postgresql-database/#:~:text=To%20back%20up%2C%20a%20PostgreSQL,plain%2Dtext%20SQL%20script%20file.
+
+Backup Remote PostgreSQL Databases
+pg_dump is a regular PostgreSQL client tool, it supports operations on remote database servers. To specify the remote database server pg_dump should contact, 
+use the command-line options -h to specify the remote host and -p specifies the remote port the database server is listening on. Besides, use the -U flag to 
+specify the database role name to connect as.
+
+Remember to replace 10.10.20.10 and 5432 and tecmintdb with your remote host IP address or hostname, database port, and database name respectively.
+
+$ pg_dump -U data -h 34.122.158.121 -p 5432 dataweave > dataweave.sql
+
+================== if you want to access outside to connect and take backup of db install pg_dump on source server ==========================
+
+yum install -y postgres -y
